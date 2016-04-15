@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package tubeskel7;
+package model;
 
 /**
  *
@@ -12,12 +12,12 @@ package tubeskel7;
 public abstract class orang {
     private String nama;
     private long no_hp;
-    private String alamat;
+    private String pass;
 
-    public orang(String nama, long no_hp, String alamat) {
+    public orang(String nama, long no_hp, String pass) {
         this.nama = nama;
         this.no_hp = no_hp;
-        this.alamat = alamat;
+        this.pass = pass;
     }
     
     public String getNama() {
@@ -36,12 +36,17 @@ public abstract class orang {
         this.no_hp = no_hp;
     }
 
-    public String getAlamat() {
-        return alamat;
+    public String getPass() {
+        return pass;
     }
 
-    public void setAlamat(String alamat) {
-        this.alamat = alamat;
+    public void setPass(String pass) {
+        this.pass = pass;
+    }
+
+    @Override
+    public String toString() {
+        return "orang{" + "nama=" + nama + ", no_hp=" + no_hp + ", pass=" + pass + '}';
     }
     
 }

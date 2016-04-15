@@ -3,30 +3,20 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package tubeskel7;
+package model;
 
 /**
  *
  * @author The Keong's
  */
 public class kurir {
-    private String jenisBarang;
     private String lokasi;
     private String tujuan;
-    private String status="belum di ambil";
+    private String status="belum diambil";
 
-    public kurir(String jenisBarang, String lokasi, String tujuan) {
-        this.jenisBarang = jenisBarang;
+    public kurir(String lokasi, String tujuan) {
         this.lokasi = lokasi;
         this.tujuan = tujuan;
-    }
-
-    public String getJenisBarang() {
-        return jenisBarang;
-    }
-
-    public void setJenisBarang(String jenisBarang) {
-        this.jenisBarang = jenisBarang;
     }
 
     public String getLokasi() {
@@ -52,4 +42,11 @@ public class kurir {
     public void setStatus(String status) {
         this.status = status;
     }
+
+    @Override
+    public String toString() {
+        return "kurir{" + "lokasi=" + lokasi + ", tujuan=" + tujuan + ", status=" + status + '}';
+    }
+    
+    
 }

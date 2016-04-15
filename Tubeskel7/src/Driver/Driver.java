@@ -3,19 +3,23 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package tubeskel7;
+package Driver;
+
+import Controller.Controller;
+import model.aplikasi;
 
 /**
  *
  * @author The Keong's
  */
-public class Tubeskel7 {
+public class Driver {
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        aplikasi ap = new aplikasi();
+        new Controller(ap);
     }
     
 }

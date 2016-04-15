@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package tubeskel7;
+package model;
 
 /**
  *
@@ -42,4 +42,10 @@ public class Pesanan {
     public void setStatus(String status) {
         this.status = status;
     }
+
+    @Override
+    public String toString() {
+        return "Pesanan{" + "lokasi=" + lokasi + ", tujuan=" + tujuan + ", status=" + status + '}';
+    }
+    
 }
