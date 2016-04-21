@@ -165,8 +165,9 @@ public class Controller extends MouseAdapter implements ActionListener {
             }
         } else if (currentView.equals("3")){
             if(source.equals(mP.getPesan())){
-                
-                if (mP.getJenis() == "pesanan"){
+                if ((mP.getAwal().equals(""))&&(mP.getAkhir().equals(""))){
+                    JOptionPane.showMessageDialog(null, "cek kembali inputan", "Peringatan", JOptionPane.ERROR_MESSAGE);
+                }else if (mP.getJenis() == "pesanan"){
                     Pesanan pes = new Pesanan(mP.getAwal(),mP.getAkhir());
                     p.createPesanan(pes);
                     mP.reset();
@@ -209,7 +210,7 @@ public class Controller extends MouseAdapter implements ActionListener {
                 posisi = false;
             }else if (source.equals(ad.getdelete())){
                 if (namaSeleksi.equals("")){
-                        JOptionPane.showMessageDialog(null, "pilih pesanan yang mau di ambil", "Peringatan", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "pilih data yang mau di hapus", "Peringatan", JOptionPane.ERROR_MESSAGE);
                 }else if (model.getPelanggan(namaSeleksi) != null){
                     model.delPelanggan(namaSeleksi);
                     ad.setview("");
