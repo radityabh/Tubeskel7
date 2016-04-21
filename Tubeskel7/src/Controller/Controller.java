@@ -189,7 +189,7 @@ public class Controller extends MouseAdapter implements ActionListener {
         }else if (currentView.equals("4")){
                 if (source.equals(mG.buttonAmbilPressed())){
                     if (namaSeleksi.equals(""))
-                        System.out.println("Kasih joptionpane");
+                        JOptionPane.showMessageDialog(null, "pilih pesanan yang mau di ambil", "Peringatan", JOptionPane.ERROR_MESSAGE);
                     else {
                         pd.selectPesanan(namaSeleksi,lokasiSeleksi,tujuanSeleksi);
                         mG.setListOutPesanan(model.getListPesanan());
@@ -208,12 +208,16 @@ public class Controller extends MouseAdapter implements ActionListener {
                 ad.setListOutViewPng(model.getListPengemudi());
                 posisi = false;
             }else if (source.equals(ad.getdelete())){
-                if (model.getPelanggan(namaSeleksi) != null){
+                if (namaSeleksi.equals("")){
+                        JOptionPane.showMessageDialog(null, "pilih pesanan yang mau di ambil", "Peringatan", JOptionPane.ERROR_MESSAGE);
+                }else if (model.getPelanggan(namaSeleksi) != null){
                     model.delPelanggan(namaSeleksi);
+                    ad.setview("");
                     ad.setListOutViewPlg(model.getListPelanggan());
-                 } else if (model.getPengemudi(namaSeleksi) != null){
-                     model.delPengemudi(namaSeleksi);
-                     ad.setListOutViewPng(model.getListPengemudi());
+                } else if (model.getPengemudi(namaSeleksi) != null){
+                    model.delPengemudi(namaSeleksi);
+                    ad.setview("");
+                    ad.setListOutViewPng(model.getListPengemudi());
                 }
             }else if (source.equals(ad.getlogout())){
                 L.reset();

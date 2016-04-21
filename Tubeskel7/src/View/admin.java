@@ -63,12 +63,13 @@ public class admin extends javax.swing.JPanel {
     }
     
     public void setListOutViewPlg(ArrayList<Pelanggan> list){
-        String[] judul = {"Username","No HP"};
-        String[][] isi = new String[list.size()][2];
+        String[] judul = {"Username","No HP","Pass"};
+        String[][] isi = new String[list.size()][3];
         int i = 0;
         for (Pelanggan p : list){
             isi[i][0] = p.getNama();
             isi[i][1] = String.valueOf(p.getNo_hp());
+            isi[i][2] = p.getPass();
             i++;
         }
         DefaultTableModel tableModel = new DefaultTableModel(isi,judul);
@@ -77,12 +78,13 @@ public class admin extends javax.swing.JPanel {
     }
     
     public void setListOutViewPng(ArrayList<Pengemudi> list){
-        String[] judul = {"Username","No HP"};
-        String[][] isi = new String[list.size()][2];
+        String[] judul = {"Username","No HP","Pass"};
+        String[][] isi = new String[list.size()][3];
         int i = 0;
         for (Pengemudi p : list){
             isi[i][0] = p.getNama();
             isi[i][1] = String.valueOf(p.getNo_hp());
+            isi[i][2] = p.getPass();
             i++;
         }
         DefaultTableModel tableModel = new DefaultTableModel(isi,judul);
