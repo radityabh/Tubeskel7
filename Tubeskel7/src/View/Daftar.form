@@ -44,13 +44,11 @@
                       <EmptySpace max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Component id="back" pref="275" max="32767" attributes="0"/>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="daftar2" alignment="0" pref="275" max="32767" attributes="0"/>
-                              <Component id="pass2" alignment="1" pref="275" max="32767" attributes="0"/>
-                              <Component id="NoHP" alignment="1" max="32767" attributes="0"/>
-                              <Component id="username2" alignment="1" max="32767" attributes="0"/>
-                              <Component id="posisi" alignment="1" max="32767" attributes="0"/>
-                          </Group>
+                          <Component id="daftar2" alignment="0" pref="275" max="32767" attributes="0"/>
+                          <Component id="pass2" alignment="1" pref="275" max="32767" attributes="0"/>
+                          <Component id="NoHP" alignment="1" max="32767" attributes="0"/>
+                          <Component id="username2" alignment="1" max="32767" attributes="0"/>
+                          <Component id="posisi" alignment="1" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -122,7 +120,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel7">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Username"/>
+        <Property name="text" type="java.lang.String" value="UserName"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="username2">

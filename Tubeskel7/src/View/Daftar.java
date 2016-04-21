@@ -49,7 +49,7 @@ public class Daftar extends javax.swing.JPanel {
 
         posisi.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "pelanggan", "pengemudi" }));
 
-        jLabel7.setText("Username");
+        jLabel7.setText("UserName");
 
         jLabel2.setText("No HP");
 
@@ -90,12 +90,11 @@ public class Daftar extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(back, javax.swing.GroupLayout.DEFAULT_SIZE, 275, Short.MAX_VALUE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(daftar2, javax.swing.GroupLayout.DEFAULT_SIZE, 275, Short.MAX_VALUE)
-                                .addComponent(pass2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 275, Short.MAX_VALUE)
-                                .addComponent(NoHP, javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(username2, javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(posisi, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(daftar2, javax.swing.GroupLayout.DEFAULT_SIZE, 275, Short.MAX_VALUE)
+                            .addComponent(pass2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 275, Short.MAX_VALUE)
+                            .addComponent(NoHP, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(username2, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(posisi, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addContainerGap())))
         );
         layout.setVerticalGroup(

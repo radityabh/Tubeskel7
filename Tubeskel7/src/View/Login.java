@@ -41,7 +41,7 @@ public class Login extends javax.swing.JPanel {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Selamat datang di Aplikasi Transportasi Online");
 
-        jLabel3.setText("Username");
+        jLabel3.setText("UserName");
 
         username.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

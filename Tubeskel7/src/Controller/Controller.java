@@ -9,6 +9,7 @@ import Database.Database;
 import View.Daftar;
 import View.Login;
 import View.Panelcontainer;
+import View.admin;
 import View.menuPelanggan;
 import View.menuPengemudi;
 import java.awt.event.ActionEvent;
@@ -41,11 +42,13 @@ public class Controller extends MouseAdapter implements ActionListener {
     private String lokasiSeleksi = "";
     private String tujuanSeleksi = "";
     private JPanel mainPanel;
+    private boolean posisi;
     
     private Login L;
     private Daftar D;
     private menuPelanggan mP;
     private menuPengemudi mG;
+    private admin ad;
     
     private Pelanggan p;
     private Pengemudi pd;
@@ -57,6 +60,7 @@ public class Controller extends MouseAdapter implements ActionListener {
         L = new Login();
         D = new Daftar();
         //K = new kosong();
+        ad= new admin();
         mP = new menuPelanggan();
         mG = new menuPengemudi();
         
@@ -65,6 +69,8 @@ public class Controller extends MouseAdapter implements ActionListener {
         mP.addListener(this);
         mG.addListener(this);
         mG.addAdapter(this);
+        ad.addListener(this);
+        ad.addAdapter(this);
         
         mainPanel = view.getMainPanel();
         mainPanel.add(L,"0");
@@ -72,6 +78,7 @@ public class Controller extends MouseAdapter implements ActionListener {
         //mainPanel.add(K,"2");
         mainPanel.add(mP,"3");
         mainPanel.add(mG,"4");
+        mainPanel.add(ad,"5");
         currentView = "0";
         
         view.getCardLayout().show(mainPanel, currentView);
@@ -80,123 +87,25 @@ public class Controller extends MouseAdapter implements ActionListener {
         
     }
     
-    public String[][] getListOutPelanggan(){
-        Database db = new Database();
-        int a = 0;
-        String s = "Select count(*) jum from tpelanggan where nama ='"+p.getNama()+"'";
-        ResultSet rs = db.getData(s);
-        try {
-            while (rs.next()){
-                a = rs.getInt("jum");
-            }
-        } catch (SQLException ex) {
-            System.out.println(ex);
-        }
-        s = "Select jenis, awal, akhir, status, namap, nohpp from tpelanggan where nama = '"+p.getNama()+"'";
-        String out[][] = new String[a][6];
-        rs = db.getData(s);
-        try {
-            int i = 0;
-            while (rs.next()){
-                out[i][0] = rs.getString("jenis");
-                out[i][1] = rs.getString("awal");
-                out[i][2] = rs.getString("akhir");
-                out[i][3] = rs.getString("status");
-                out[i][4] = rs.getString("namap");
-                out[i][5] = rs.getString("nohpp");
-                i++;
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
-        }    
-        try {
-            rs.close();
-        } catch (SQLException ex) {
-            Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return out;
-    }
-    
-    public String[][] getListPesanan(){
-        Database db = new Database();
-        int a = 0;
-        String s = "Select count(*) jum from tpengemudi where status ='belum diambil' or status = 'belum di ambil'";
-        ResultSet rs = db.getData(s);
-        try {
-            while (rs.next()){
-                a = rs.getInt("jum");
-            }
-        } catch (SQLException ex) {
-            System.out.println(ex);
-        }
-        s = "Select jenis, awal, akhir, status, namap, nohpp from tpengemudi where status ='belum diambil' or status = 'belum di ambil'";
-        String out[][] = new String[a][6];
-        rs = db.getData(s);
-        try {
-            int i = 0;
-            while (rs.next()){
-                out[i][0] = rs.getString("jenis");
-                out[i][1] = rs.getString("awal");
-                out[i][2] = rs.getString("akhir");
-                out[i][3] = rs.getString("status");
-                out[i][4] = rs.getString("namap");
-                out[i][5] = rs.getString("nohpp");
-                i++;
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
-        }    
-        try {
-            rs.close();
-        } catch (SQLException ex) {
-            Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return out;
-    }
-    
-    public String[][] getListPengemudi(){
-        Database db = new Database();
-        int a = 0;
-        String s = "Select count(*) jum from tpengemudi where nama ='"+pd.getNama()+"'";
-        ResultSet rs = db.getData(s);
-        try {
-            while (rs.next()){
-                a = rs.getInt("jum");
-            }
-        } catch (SQLException ex) {
-            System.out.println(ex);
-        }
-        s = "Select jenis, awal, akhir, namap, nohpp from tpengemudi where nama = '"+pd.getNama()+"'";
-        String out[][] = new String[a][5];
-        rs = db.getData(s);
-        try {
-            int i = 0;
-            while (rs.next()){
-                out[i][0] = rs.getString("jenis");
-                out[i][1] = rs.getString("awal");
-                out[i][2] = rs.getString("akhir");
-                out[i][3] = rs.getString("namap");
-                out[i][4] = rs.getString("nohpp");
-                i++;
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
-        }    
-        try {
-            rs.close();
-        } catch (SQLException ex) {
-            Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return out;
-    }
-    
+    @Override
     public void mousePressed(MouseEvent e){
         Object source = e.getSource();
         if (source.equals(mG.tabelPesananSelected())&&mG.getSelectedPesanan() >= 0){
-            String[][] a = getListPesanan();
+            String[][] a = model.getListPesanan();
             namaSeleksi = a[mG.getSelectedPesanan()][4];
             lokasiSeleksi = a[mG.getSelectedPesanan()][1];
             tujuanSeleksi = a[mG.getSelectedPesanan()][2];
+        } else if (source.equals(ad.tabelViewSelected())&&ad.getselectedview() >=0){
+            if (posisi){
+                ad.setview("");
+                namaSeleksi = model.getPelangganIdx(ad.getselectedview()).getNama();
+                ad.setview(model.getRiwayatPelanggan(namaSeleksi));
+            } else if(!posisi){
+                ad.setview("");
+                namaSeleksi = model.getPengemudiIdx(ad.getselectedview()).getNama();
+                ad.setview(model.getRiwayatPengemudi(namaSeleksi));
+            }
+            
         }
     }
     
@@ -214,14 +123,17 @@ public class Controller extends MouseAdapter implements ActionListener {
                     mP.reset();
                     currentView="3";
                     p = model.getPelanggan(L.getUser());
-                    mP.setListOutPelanggan(getListOutPelanggan());
+                    mP.setListOutPelanggan(model.getListOutPelanggan(p));
                     view.getCardLayout().show(mainPanel, currentView);
                 }else if (model.cekPengemudi(L.getUser(), L.getPass())){
                     currentView="4";
                     view.getCardLayout().show(mainPanel, currentView);
                     pd = model.getPengemudi(L.getUser());
-                    mG.setListOutPesanan(getListPesanan());
-                    mG.setListOutPengemudi(getListPengemudi());
+                    mG.setListOutPesanan(model.getListPesanan());
+                    mG.setListOutPengemudi(model.getListPengemudi(pd));
+                }else if(L.getUser().equals("admin")||L.getPass().equals("admin")){
+                    currentView="5";
+                    view.getCardLayout().show(mainPanel, currentView);
                 } else if ((!model.cekPengemudi(L.getUser(), L.getPass())) && (!model.cekPelanggan(L.getUser(), L.getPass()))){
                     JOptionPane.showMessageDialog(null, "User tidak ada atau username dan pass salah", "Peringatan", JOptionPane.ERROR_MESSAGE);
                 }    
@@ -258,14 +170,14 @@ public class Controller extends MouseAdapter implements ActionListener {
                     Pesanan pes = new Pesanan(mP.getAwal(),mP.getAkhir());
                     p.createPesanan(pes);
                     mP.reset();
-                    mP.setListOutPelanggan(getListOutPelanggan());
+                    mP.setListOutPelanggan(model.getListOutPelanggan(p));
                     currentView="3";
                     view.getCardLayout().show(mainPanel, currentView);
                 } else if(mP.getJenis() == "kurir"){
                     kurir kr = new kurir(mP.getAwal(),mP.getAkhir());
                     p.createKurir(kr);
                     mP.reset();
-                    mP.setListOutPelanggan(getListOutPelanggan());
+                    mP.setListOutPelanggan(model.getListOutPelanggan(p));
                     currentView="3";
                     view.getCardLayout().show(mainPanel, currentView);
                 }
@@ -280,14 +192,34 @@ public class Controller extends MouseAdapter implements ActionListener {
                         System.out.println("Kasih joptionpane");
                     else {
                         pd.selectPesanan(namaSeleksi,lokasiSeleksi,tujuanSeleksi);
-                        mG.setListOutPesanan(getListPesanan());
-                        mG.setListOutPengemudi(getListPengemudi());
+                        mG.setListOutPesanan(model.getListPesanan());
+                        mG.setListOutPengemudi(model.getListPengemudi(pd));
                     }
                 }else if(source.equals(mG.btnLog())){
                     L.reset();
                     currentView="0";
                     view.getCardLayout().show(mainPanel, currentView);
                 }
+        }else if(currentView.equals("5")){
+            if (source.equals(ad.getVpel())){
+                ad.setListOutViewPlg(model.getListPelanggan());
+                posisi = true;
+            }else if (source.equals(ad.getVpeng())){
+                ad.setListOutViewPng(model.getListPengemudi());
+                posisi = false;
+            }else if (source.equals(ad.getdelete())){
+                if (model.getPelanggan(namaSeleksi) != null){
+                    model.delPelanggan(namaSeleksi);
+                    ad.setListOutViewPlg(model.getListPelanggan());
+                 } else if (model.getPengemudi(namaSeleksi) != null){
+                     model.delPengemudi(namaSeleksi);
+                     ad.setListOutViewPng(model.getListPengemudi());
+                }
+            }else if (source.equals(ad.getlogout())){
+                L.reset();
+                currentView="0";
+                view.getCardLayout().show(mainPanel, currentView);
+            }
         }
     }
 }

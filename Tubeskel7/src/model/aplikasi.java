@@ -5,6 +5,7 @@
  */
 package model;
 
+import Controller.Controller;
 import Database.Database;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -118,12 +119,41 @@ public class aplikasi {
         return null;
     }
     
+    
     public Pengemudi getPengemudi(String user){
         for (int n = 0;n < daftarPengemudi.size();n++){
             if (daftarPengemudi.get(n).getNama().equals(user))
                 return daftarPengemudi.get(n);
         }
         return null;
+    }
+    
+    public Pelanggan getPelangganIdx(int n){
+        return daftarPelanggan.get(n);
+    }
+    
+    public Pengemudi getPengemudiIdx(int n){
+        return daftarPengemudi.get(n);
+    }
+    
+    public void delPelanggan(String nama){
+        Pelanggan p = getPelanggan(nama);
+        Database db = new Database();
+        String s = "delete from tpelanggan where nama = '"+nama+"'";
+        db.query(s);
+        s = "delete from pelanggan where nama = '"+nama+"'";
+        db.query(s);
+        daftarPelanggan.remove(p);
+    }
+    
+    public void delPengemudi(String nama){
+        Pengemudi p = getPengemudi(nama);
+        Database db = new Database();
+        String s = "delete from tpengemudi where nama = '"+nama+"'";
+        db.query(s);
+        s = "delete from pengemudi where nama = '"+nama+"'";
+        db.query(s);
+        daftarPengemudi.remove(p);
     }
     
    public boolean cekPelanggan(String nama,String pass){
@@ -139,5 +169,189 @@ public class aplikasi {
                return true;
        }return false;
    }
+   public String[][] getListOutPelanggan(Pelanggan p){
+        Database db = new Database();
+        int a = 0;
+        String s = "Select count(*) jum from tpelanggan where nama ='"+p.getNama()+"'";
+        ResultSet rs = db.getData(s);
+        try {
+            while (rs.next()){
+                a = rs.getInt("jum");
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+        s = "Select jenis, awal, akhir, status, namap, nohpp from tpelanggan where nama = '"+p.getNama()+"'";
+        String out[][] = new String[a][6];
+        rs = db.getData(s);
+        try {
+            int i = 0;
+            while (rs.next()){
+                out[i][0] = rs.getString("jenis");
+                out[i][1] = rs.getString("awal");
+                out[i][2] = rs.getString("akhir");
+                out[i][3] = rs.getString("status");
+                out[i][4] = rs.getString("namap");
+                out[i][5] = rs.getString("nohpp");
+                i++;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+        }    
+        try {
+            rs.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return out;
+    }
     
+    public String[][] getListPesanan(){
+        Database db = new Database();
+        int a = 0;
+        String s = "Select count(*) jum from tpengemudi where status ='belum diambil' or status = 'belum di ambil'";
+        ResultSet rs = db.getData(s);
+        try {
+            while (rs.next()){
+                a = rs.getInt("jum");
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+        s = "Select jenis, awal, akhir, status, namap, nohpp from tpengemudi where status ='belum diambil' or status = 'belum di ambil'";
+        String out[][] = new String[a][6];
+        rs = db.getData(s);
+        try {
+            int i = 0;
+            while (rs.next()){
+                out[i][0] = rs.getString("jenis");
+                out[i][1] = rs.getString("awal");
+                out[i][2] = rs.getString("akhir");
+                out[i][3] = rs.getString("status");
+                out[i][4] = rs.getString("namap");
+                out[i][5] = rs.getString("nohpp");
+                i++;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+        }    
+        try {
+            rs.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return out;
+    }
+    
+    public String[][] getListPengemudi(Pengemudi pd){
+        Database db = new Database();
+        int a = 0;
+        String s = "Select count(*) jum from tpengemudi where nama ='"+pd.getNama()+"'";
+        ResultSet rs = db.getData(s);
+        try {
+            while (rs.next()){
+                a = rs.getInt("jum");
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+        s = "Select jenis, awal, akhir, namap, nohpp from tpengemudi where nama = '"+pd.getNama()+"'";
+        String out[][] = new String[a][5];
+        rs = db.getData(s);
+        try {
+            int i = 0;
+            while (rs.next()){
+                out[i][0] = rs.getString("jenis");
+                out[i][1] = rs.getString("awal");
+                out[i][2] = rs.getString("akhir");
+                out[i][3] = rs.getString("namap");
+                out[i][4] = rs.getString("nohpp");
+                i++;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+        }    
+        try {
+            rs.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return out;
+    }
+    
+    public String getRiwayatPengemudi(String nama){
+        Database db = new Database();
+        int a = 0;
+        String s = "Select count(*) jum from tpengemudi where nama ='"+nama+"'";
+        ResultSet rs = db.getData(s);
+        try {
+            while (rs.next()){
+                a = rs.getInt("jum");
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+        s = "Select jenis, awal, akhir, namap, nohpp from tpengemudi where nama = '"+nama+"'";
+        rs = db.getData(s);
+        String hasil = "";
+        try {
+            int i=1;
+            while (rs.next()){
+                hasil = "\n"+hasil + "\nData ke "+i+"\nJenis : "+rs.getString("jenis")+"\nLokasi awal : "+rs.getString("awal")
+                        +"\nTujuan : "+rs.getString("akhir")+"\nNama Pemesan : "+rs.getString("namap")+"\nNoHp Pemesan : "
+                        +rs.getString("nohpp")+"\n";
+                i++;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+        }    
+        try {
+            rs.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return hasil;
+    }
+    
+    public String getRiwayatPelanggan(String nama){
+        Database db = new Database();
+        int a = 0;
+        String s = "Select count(*) jum from tpelanggan where nama ='"+nama+"'";
+        ResultSet rs = db.getData(s);
+        try {
+            while (rs.next()){
+                a = rs.getInt("jum");
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+        s = "Select jenis, awal, akhir, namap, nohpp from tpelanggan where nama = '"+nama+"'";
+        rs = db.getData(s);
+        String hasil = "";
+        try {
+           
+            int i=1;
+            while (rs.next()){
+                hasil = "\n"+ hasil + "\nData ke "+i+"\nJenis : "+rs.getString("jenis")+"\nLokasi awal : "+rs.getString("awal")
+                        +"\nTujuan : "+rs.getString("akhir")+"\nNama Pengemudi : "+rs.getString("namap")+"\nNoHp Pengemudi : "
+                        +rs.getString("nohpp")+"\n";
+                i++;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+        }    
+        try {
+            rs.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return hasil;
+    }
+        
+   public ArrayList<Pelanggan> getListPelanggan(){
+       return daftarPelanggan;
+   }
+   public ArrayList<Pengemudi> getListPengemudi(){
+       return daftarPengemudi;
+   } 
 }
