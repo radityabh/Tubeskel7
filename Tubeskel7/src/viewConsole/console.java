@@ -5,6 +5,7 @@
  */
 package viewConsole;
 
+import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import model.Pelanggan;
@@ -95,8 +96,8 @@ public class console {
         do{
             System.out.println("------selamat datang "+pen.getNama()+"-------");
             System.out.println("Menu Pengemudi : ");
-            System.out.println("1. ambil pesanan : ");
-            System.out.println("2. lihat pesanan : ");
+            System.out.println("1. ambil pesanan");
+            System.out.println("2. lihat pesanan yang diambi;");
             System.out.println("0.logout");
             System.out.print("Input menu : ");
             pil = inputInteger();
@@ -109,17 +110,111 @@ public class console {
                     }
                     System.out.print("ambil Pesanan no : ");
                     int inp = inputInteger();
-                    pen.selectPesanan(s[inp][4],s[inp][1],s[inp][2]);
+                    pen.selectPesanan(s[inp][4],s[inp][1],s[inp][2]);break;
                 case 2 :
                     s= model.getListPengemudi(pen);
                     for (int i = 0; i < s.length; i++){
                         System.out.println("   "+i+". jenis "+s[i][0]+" Lokasi awal "+s[i][1]+" Tujuan "+s[i][2]+" Nama Pemesan "+s[i][3]+" No HP "+s[i][4]); 
-                    }
+                    }break;
+                case 0 :
+                    System.out.print("log out berhasil");break;
+                default :
+                        System.out.print("wrong menu inputan");
             }
         }while(pil !=0);
         System.out.println("Berhasil Log Out");
     }
+    
     public void menuAdmin(){
+        int pil =0;
+        do{
+            System.out.println("Menu");
+            System.out.println("1. view pelanggan");
+            System.out.println("2. view pengemudi");
+            System.out.println("3. view riwayat pelanggan");
+            System.out.println("4. view riwayat pengemudi");
+            System.out.println("5. del pelanggan");
+            System.out.println("6. del pengemudi");
+            System.out.println("0. logout");
+            System.out.print("Input menu : ");
+            pil = inputInteger();
+            switch (pil){
+                case 1 :
+                    ArrayList<Pelanggan> p = model.getListPelanggan();
+                    for (int i = 0; i < p.size(); i++){
+                        Pelanggan n = p.get(i);
+                        System.out.println("UserName "+n.getNama()+" NoHP "+n.getNo_hp()+" pass "+n.getPass());
+                    }break;
+                case 2 :
+                    ArrayList<Pengemudi> pi = model.getListPengemudi();
+                    for (int i = 0; i < pi.size(); i++){
+                        Pengemudi n = pi.get(i);
+                        System.out.println("UserName "+n.getNama()+" NoHP "+n.getNo_hp()+" pass "+n.getPass());
+                    }break;
+                case 3 :
+                    System.out.print("Masukan UserName : ");
+                    String s = sStr.nextLine();
+                    model.getRiwayatPelanggan(s);
+                    break;
+                case 4 :
+                    System.out.print("Masukan UserName : ");
+                    s = sStr.nextLine();
+                    model.getRiwayatPengemudi(s);
+                    break;
+                case 5:
+                    System.out.print("Masukan UserName : ");
+                    s = sStr.nextLine();
+                    model.delPelanggan(s);
+                    break;
+                case 6:
+                    System.out.print("Masukan UserName : ");
+                    s = sStr.nextLine();
+                    model.delPengemudi(s);
+                case 0:
+                     System.out.print("log out berhasil");break;
+                default :
+                        System.out.print("wrong menu inputan");
+            }
+        }while (pil !=0);
+    }
+    
+    public void menudaftar(){
+        int pil=0;
+        String nama;
+        long nohp;
+        String pass;
+        do{
+            System.out.print("Menu Daftar");
+            System.out.print("1. Sebagai Pelanggan");
+            System.out.print("2. Sebagai Pengemudi");
+            System.out.print("3. Back");
+            System.out.print("Input menu : ");
+            pil = inputInteger();
+            switch (pil){
+                case 1 :
+                   System.out.print("Username : ");
+                   nama = sStr.nextLine();
+                   System.out.print("NoHp : ");
+                   nohp = Long.valueOf(sStr.nextLine());
+                   System.out.print("Pass : ");
+                   pass = sStr.nextLine();
+                   model.addPelanggan(nama, nohp, pass);
+                   break;
+                case 2 :
+                   System.out.print("Username : ");
+                   nama = sStr.nextLine();
+                   System.out.print("NoHp : ");
+                   nohp = Long.valueOf(sStr.nextLine());
+                   System.out.print("Pass : ");
+                   pass = sStr.nextLine();
+                   model.addPengemudi(nama, nohp, pass);
+                   break;
+                case 3 :
+                    System.out.println("");
+                default :
+                        System.out.print("wrong menu inputan");
+            }
+        }while (pil !=0);
         
     }
 
@@ -134,10 +229,11 @@ public class console {
         }else if(model.cekPengemudi(name, pass)){
             pen = model.getPengemudi(name);
             menuPengemudi();
+        }else if((name.equals("admin"))&&(pass.equals("admin"))){
+            menuAdmin();
         }else if ((!model.cekPengemudi(name, pass)) && (!model.cekPelanggan(name, pass))){
             System.out.println("User tidak ada atau username dan pass salah");
         }
-            
     }
     public void mainMenu(){
         int pil = 0;
