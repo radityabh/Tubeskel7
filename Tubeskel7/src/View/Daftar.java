@@ -41,7 +41,7 @@ public class Daftar extends javax.swing.JPanel {
         daftar2 = new javax.swing.JButton();
         back = new javax.swing.JButton();
 
-        jLabel1.setFont(new java.awt.Font("ClearfaceGothic LT Roman", 0, 14)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("ClearfaceGothic LT Roman", 1, 18)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Masukkan Data Anda");
 
@@ -99,9 +99,9 @@ public class Daftar extends javax.swing.JPanel {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(30, 30, 30)
+                .addGap(26, 26, 26)
                 .addComponent(jLabel1)
-                .addGap(27, 27, 27)
+                .addGap(31, 31, 31)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(posisi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6))
@@ -121,7 +121,7 @@ public class Daftar extends javax.swing.JPanel {
                 .addComponent(daftar2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(back)
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addContainerGap(13, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
