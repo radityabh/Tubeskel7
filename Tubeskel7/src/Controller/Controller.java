@@ -195,6 +195,7 @@ public class Controller extends MouseAdapter implements ActionListener {
                         pd.selectPesanan(namaSeleksi,lokasiSeleksi,tujuanSeleksi);
                         mG.setListOutPesanan(model.getListPesanan());
                         mG.setListOutPengemudi(model.getListPengemudi(pd));
+                        JOptionPane.showMessageDialog(null, "Pesanan Berhasil diambil");
                     }
                 }else if(source.equals(mG.btnLog())){
                     L.reset();
