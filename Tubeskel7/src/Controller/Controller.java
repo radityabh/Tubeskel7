@@ -19,6 +19,7 @@ import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.InputMismatchException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -132,6 +133,7 @@ public class Controller extends MouseAdapter implements ActionListener {
                     mG.setListOutPesanan(model.getListPesanan());
                     mG.setListOutPengemudi(model.getListPengemudi(pd));
                 }else if(L.getUser().equals("admin")||L.getPass().equals("admin")){
+                    ad.setListOutViewRes();
                     currentView="5";
                     view.getCardLayout().show(mainPanel, currentView);
                 } else if ((!model.cekPengemudi(L.getUser(), L.getPass())) && (!model.cekPelanggan(L.getUser(), L.getPass()))){
@@ -146,11 +148,17 @@ public class Controller extends MouseAdapter implements ActionListener {
                 if (D.regUser().equals("")||D.regPass().equals("")||D.regNoHP() == 0){
                     JOptionPane.showMessageDialog(null, "cek kembali inputan", "Peringatan", JOptionPane.ERROR_MESSAGE);
                 }else if (D.getPosisi() == "pelanggan"){
+                    try{
                     JOptionPane.showMessageDialog(null, "Pendaftaran Berhasil");
                     model.addPelanggan(D.regUser(), D.regNoHP(), D.regPass());
                     D.reset();
+                    }catch (NumberFormatException e) {
+                         JOptionPane.showMessageDialog(null, "NO HP tidak boleh string", "Peringatan", JOptionPane.ERROR_MESSAGE);
+                    }finally{
                     currentView="1";
                     view.getCardLayout().show(mainPanel, currentView);
+                    }
+                    
                 }else if (D.getPosisi()=="pengemudi"){
                     JOptionPane.showMessageDialog(null, "pendaftaran berhasil");
                     model.addPengemudi(D.regUser(), D.regNoHP(), D.regPass());

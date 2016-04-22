@@ -20,9 +20,8 @@ public class Driver {
      */
     public static void main(String[] args) {
         aplikasi ap = new aplikasi();
-       // new Controller(ap);
-        
-        
+        //new Controller(ap);
+       
         console view = new console(ap);
         view.mainMenu();
     }
