@@ -6,6 +6,8 @@
 package View;
 
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -52,6 +54,12 @@ public class Daftar extends javax.swing.JPanel {
         jLabel7.setText("UserName");
 
         jLabel2.setText("No HP");
+
+        NoHP.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                NoHPKeyTyped(evt);
+            }
+        });
 
         jLabel3.setText("Password");
 
@@ -128,6 +136,14 @@ public class Daftar extends javax.swing.JPanel {
     private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_backActionPerformed
+
+    private void NoHPKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_NoHPKeyTyped
+        char c = evt.getKeyChar();
+        if (!(Character.isDigit(c) || (c==KeyEvent.VK_BACK_SPACE) || c==KeyEvent.VK_DELETE)) {
+           JOptionPane.showMessageDialog(null,"Hanya untuk inputan Angka saja ! ");
+           evt.consume();
+        }
+    }//GEN-LAST:event_NoHPKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
